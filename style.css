@@ -1,0 +1,357 @@
+/* Main body styling - dark theme for horror atmosphere */
+body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    overflow: hidden;
+    font-family: 'VT323', monospace; /* Retro terminal font */
+}
+
+/* Canvas positioning - hidden by default */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: none;
+}
+
+/* Background image styling */
+#background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    object-fit: cover;
+}
+
+/* Disabled state for buttons */
+.fnaf-button[disabled],
+.fnaf-control-button[disabled] {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+/* Base styling for horror-themed buttons */
+.fnaf-button, .game-mode-button {
+    position: absolute;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2b0000 0%, #5c0000 100%); /* Blood red gradient */
+    border: 2px solid #3a0000;
+    cursor: pointer;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffcc66; /* Pale yellow text */
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    box-shadow: 
+        0 0 10px #a00,
+        0 0 20px rgba(200, 0, 0, 0.5);
+    transition: all 0.2s ease;
+    letter-spacing: 1px;
+    overflow: hidden;
+    animation: flicker 3s infinite; /* Flickering effect */
+}
+
+/* Circular side buttons */
+.fnaf-button {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+/* Rectangular game mode button */
+.game-mode-button {
+    left: 45%;
+    bottom: 30px;
+    width: 160px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+/* Hover effects for buttons */
+.fnaf-button:hover, .game-mode-button:hover {
+    background: linear-gradient(135deg, #5c0000 0%, #8b0000 100%);
+    color: #fff;
+    box-shadow: 
+        0 0 15px #ff0000,
+        0 0 30px rgba(255, 0, 0, 0.7);
+    transform: scale(1.05);
+}
+
+/* Active/pressed state */
+.fnaf-button:active, .game-mode-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 5px #300, inset 0 0 10px #000;
+}
+
+/* Flickering animation for horror effect */
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 5px #ff0000, 0 0 15px #a00;
+    }
+    20%, 24%, 55% {
+        opacity: 0.6;
+        text-shadow: none;
+    }
+}
+
+/* CRT monitor effect for modal windows */
+.crt-monitor {
+    background: linear-gradient(45deg, #1a1a1a 0%, #0a0a0a 100%);
+    border: 2px solid #134f08; /* Dark green border */
+    border-radius: 12px;
+    box-shadow: 
+        0 0 5px rgba(0, 255, 0, 0.3),
+        inset 0 0 5px rgba(0, 0, 0, 0.8),
+        0 0 0 1px #39ff14,
+        0 0 0 2px #1a1a1a;
+    position: relative;
+    overflow: hidden;
+}
+
+.crt-monitor2 {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Inner border effect */
+.crt-monitor::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    border: 1px solid #39ff14;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+/* Scanline effect for authentic CRT look */
+.crt-monitor::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        rgba(0, 255, 0, 0.03) 50%,
+        rgba(0, 0, 0, 0.1) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100%; }
+}
+
+/* Modal window styling */
+.modal {
+    position: absolute;
+    padding: 25px;
+    z-index: 30;
+    display: none;
+    color: #39ff14;
+    font-family: 'VT323', monospace;
+}
+
+.modal2 {
+    position: absolute;
+    padding: 25px;
+    z-index: 30;
+    display: none;
+}
+
+/* Camera modal specific sizing */
+#cameraModal {
+    width: 800px;
+    height: 700px;
+    right: 50px;
+    bottom: 150px;
+}
+
+/* Controls container positioning */
+#controlsContainer {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 40;
+    display: none;
+    transition: opacity 0.5s ease;
+}
+
+/* Transition effects for UI elements */
+.slider-container, .fnaf-control-button {
+    transition: all 0.3s ease;
+}
+
+/* Neon green text effect */
+.neon-green {
+    color: #39ff14;
+    text-shadow: 
+        0 0 2px #39ff14, 
+        0 0 10px #39ff14, 
+        0 0 1px #0f0,
+        0 0 20px rgba(57, 255, 20, 0.5);
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+/* Control menu styling */
+.control-menu {
+    list-style: none;
+    padding: 20px;
+    margin: 20px 0 0 0;
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    color: #39ff14;
+}
+
+.control-menu li {
+    margin: 12px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 3px #39ff14;
+}
+
+/* Regular menu items */
+.control-menu li:not(.movable) {
+    padding-left: 0;
+}
+
+/* Indented movable items */
+.control-menu li.movable {
+    padding-left: 40px;
+    margin-left: 20px;
+}
+
+/* Hover effects for menu items */
+.control-menu li.movable:hover {
+    color: #134f08;
+    text-shadow: 
+        0 0 8px #134f08, 
+        0 0 20px #134f08,
+        0 0 30px #134f08;
+    transform: translateX(5px);
+}
+
+.control-menu li.clickable:hover {
+    color: #134f08;
+    text-shadow: 
+        0 0 8px #134f08, 
+        0 0 20px #134f08,
+        0 0 30px #134f08;
+}
+
+/* CRT static noise effect */
+.crt-static {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(0, 255, 0, 0.05) 0px,
+        rgba(0, 255, 0, 0.05) 1px,
+        transparent 1px,
+        transparent 4px
+    );
+    pointer-events: none;
+    opacity: 0.3;
+    animation: static 0.1s infinite;
+}
+
+@keyframes static {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+    100% { opacity: 0.2; }
+}
+
+/* Screamer container for jump scare */
+#screamerContainer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+#screamerGif {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+/* Fallback screamer if GIF fails to load */
+#screamerFallback {
+    width: 100%;
+    height: 100%;
+    background: red;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'VT323', monospace;
+    color: white;
+    text-align: center;
+}
+
+/* Victory screen styling */
+#victoryScreen {
+   position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    color:white;
+    z-index:10000;
+    font-family:'VT323', monospace;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Slider controls styling */
+.slider-container {
+  background: #111; 
+  border: 1px solid #333; 
+  padding: 8px; 
+  border-radius: 3px;
+  margin: 8px 0;
+  position: relative;
+}
+
+.slider-label { 
+  color: #ccc; 
+  font-size: 18px; 
+  margin-bottom: 4px;
+  font-family: 'VT323', monospace;
+}
+
+/* Canvas display settings */
+canvas {
+  display: block;
+  margin: 0 auto;
+}

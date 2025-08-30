@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>FNaF-Style Security System</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Required libraries for image processing and face detection -->
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.js"></script>
+    <script src="libraries/objectdetect.js"></script>
+    <script src="libraries/objectdetect.frontalface.js"></script>
+    <script src="https://unpkg.com/ml5@1/dist/ml5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ml5/0.12.2/ml5.min.js"></script>
+    <script src="modules/audioSystem.js"></script>
+    <script src="modules/imageProcessing.js"></script>
+    <script src="modules/cameraSystem.js"></script>
+    <script src="modules/uiComponents.js"></script>
+    <script src="modules/gameSystem.js"></script>
+    <script src="sketch.js"></script> <!-- Main application code -->
+</head>
+<body>
+    <!-- Game clock display showing current in-game time -->
+    <div id="gameClock" style="
+        position:fixed;
+        top:20px;
+        left:50%;
+        transform:translateX(-50%);
+        font-family:'VT323', monospace;
+        font-size:32px;
+        color:#00ff00;
+        z-index:1000;
+        text-shadow:0 0 10px #00ff00;
+    "></div>
+
+    <!-- Screamer container for jump scare effects -->
+    <div id="screamerContainer" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;pointer-events:none;">
+        <img id="screamerGif" src="assets/jumpscare.gif" style="width:100%;height:100%;object-fit:cover;display:none;">
+    </div>
+
+    <!-- Game over screen displayed when player fails -->
+    <div id="gameOverScreen" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:black;color:white;z-index:10000;font-family:'VT323', monospace;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+        <div style="font-size:80px;">YOU DIED</div>
+        <div style="font-size:36px;margin-top:20px;">Press R to restart</div>
+    </div>
+
+    <!-- Victory screen displayed when player survives until 6 AM -->
+    <div id="victoryScreen" style="display:none;">
+        <div class="screamer-content">
+            <div style="font-size:80px;">CONGRATULATIONS</div>
+            <div style="font-size:80px;">You survived until 6 AM!</div>
+            <div style="font-size:36px;margin-top:20px;">Press R to play again</div>
+        </div>
+    </div>
+
+    <!-- Audio element for screamer sound -->
+    <audio id="screamerAudio" preload="auto" style="display:none;">
+        <source src="assets/screamer.mp3" type="audio/mpeg">
+        <source src="assets/screamer.wav" type="audio/wav">
+        <source src="assets/screamer.ogg" type="audio/ogg">
+    </audio>
+
+    <!-- Background GIF for atmospheric effect -->
+    <img id="background" src="assets/bg.gif" alt="FNaF Background">
+
+    <!-- Main controls container (populated by sketch.js) -->
+    <div id="controlsContainer"></div>
+    
+    <!-- UI buttons for controls and camera views -->
+    <div class="fnaf-button" id="leftButton" style="left:50px;bottom:50px;">CONTROLS</div>
+    <div class="fnaf-button" id="rightButton" style="right:50px;bottom:50px;">CAMERAS</div>
+    
+    <!-- Game mode toggle button -->
+    <div class="game-mode-button pulse" id="gameModeButton">GAME MODE</div>
+
+    <!-- Control panel modal with system options -->
+    <div class="modal crt-monitor" id="infoModal" style="left:100px;bottom:150px;width:350px;">
+        <div class="crt-static"></div>
+        <h2 class="neon-green">SYSTEM CONTROLS</h2>
+        <ul class="control-menu">
+            <li>SYSTEM RESTART</li>
+            <li>MENU >>></li>
+            <li class="movable">AUDIO DEVICES</li>
+            <li class="movable" id="rebootCamera">CAMERA SYSTEM</li> 
+            <li class="movable">VENTILATION</li>
+            <li>&lt;&lt;&lt;</li>
+            <li class="clickable" id="rebootAll">REBOOT ALL</li>
+            <li class="clickable">EXIT</li>
+        </ul>
+    </div>
+
+    <!-- Camera system modal displaying security feeds -->
+    <div class="modal2 crt-monitor2" id="cameraModal" style="width:820px;height:720px;right:40px;bottom:140px;">
+        <div class="crt-static"></div>
+        <h2 class="neon-green" style="text-align:center;margin:15px 0;">SECURITY CAMERA SYSTEM</h2>
+    </div>
+
+</body>
+</html>
